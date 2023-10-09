@@ -2,7 +2,14 @@ import { nanoid } from 'nanoid';
 import notes from '../data/notes';
 
 export default class Controller {
-  static async getAllNotes(req, res) {}
+  static async getAllNotes(res) {
+    res.send(200).json({
+      status: 'success',
+      data: {
+        notes,
+      },
+    });
+  }
 
   static async getNoteById(req, res) {}
 
