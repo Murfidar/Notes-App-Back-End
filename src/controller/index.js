@@ -66,7 +66,34 @@ export default class Controller {
     }
   }
 
-  static async updateNotes(req, res) {}
+  static async updateNotesById(req, res) {
+    const { id } = req.params;
+
+    const { title, tags, body } = req.body;
+    const updatedAt = new Date().toISOString();
+
+    const index = notes.findIndex((note) => note.id === id);
+
+    if (index !== -1) {
+      notes[index] = {
+        ...notes[index],
+        title,
+        tags,
+        body,
+        updatedAt,
+      };
+
+      res.status(200).json({
+        status: 'success',
+        message: 'Catatan berhasil diperbarui',
+      });
+    } else {
+      res.status(404).json({
+        status: 'fail',
+        message: 'Gagal memperbarui catatan. Id tidak ditemukan',
+      });
+    }
+  }
 
   static async deleteNoteById(req, res) {}
 }
