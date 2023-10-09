@@ -95,5 +95,23 @@ export default class Controller {
     }
   }
 
-  static async deleteNoteById(req, res) {}
+  static async deleteNoteById(req, res) {
+    const { id } = req.params;
+
+    const index = notes.findIndex((note) => note.id === id);
+
+    if (index !== -1) {
+      notes.splice(index, 1);
+
+      res.status(200).json({
+        status: 'success',
+        message: 'Catatan berhasil dihapus',
+      });
+    } else {
+      res.status(404).json({
+        status: 'fail',
+        message: 'Catatan gagal dihapus. Id tidak ditemukan',
+      });
+    }
+  }
 }
