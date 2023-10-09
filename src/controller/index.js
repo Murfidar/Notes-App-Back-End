@@ -11,7 +11,25 @@ export default class Controller {
     });
   }
 
-  static async getNoteById(req, res) {}
+  static async getNoteById(req, res) {
+    const { id } = req.params;
+
+    const note = notes.filter((el) => el.id === id)[0];
+
+    if (note !== undefined) {
+      res.send(200).json({
+        status: 'success',
+        data: {
+          note,
+        },
+      });
+    } else {
+      res.send(404).json({
+        status: 'fail',
+        message: 'Catatan tidak ditemukan',
+      });
+    }
+  }
 
   static async addNotes(req, res) {
     const { title, tags, body } = req.body;
